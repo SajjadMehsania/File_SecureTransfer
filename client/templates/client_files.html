@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Client Decryption Portal</title>
+    <style>
+        table {
+            width: 80%;
+            margin: 2em auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            padding: 6px 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:disabled {
+            background-color: gray;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="text-align:center;">📥 Decrypt Available Files</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>File Name</th>
+                <th>Time Remaining (seconds)</th>
+                <th>Decrypt</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for file in file_list %}
+            <tr>
+                <td>{{ file.name }}</td>
+                <td>
+                    {% if file.time_remaining > 0 %}
+                        {{ file.time_remaining }}
+                    {% else %}
+                        ⛔ Expired
+                    {% endif %}
+                </td>
+                <td>
+                    {% if file.time_remaining > 0 %}
+                    <form action="{{ url_for('decrypt_file', filename=file.name) }}" method="post">
+                        <button type="submit">🔓 Decrypt</button>
+                    </form>
+                    {% else %}
+                        <button disabled>Time Expired</button>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

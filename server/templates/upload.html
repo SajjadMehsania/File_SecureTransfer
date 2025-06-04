@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload & Encrypt File</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        input[type="file"] {
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .success {
+            color: green;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Upload a File to Encrypt</h2>
+
+    {% if success %}
+    <p class="success">✅ File encrypted and uploaded successfully!</p>
+    {% endif %}
+
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <button type="submit">Upload & Encrypt</button>
+    </form>
+
+    <h3>Encrypted Files</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Filename</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for file in files %}
+            <tr>
+                <td>{{ file }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+   
+
+</body>
+</html>
